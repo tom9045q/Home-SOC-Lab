@@ -1,0 +1,39 @@
+# Lab Architecture
+
+Notes on how this lab is set up: hardware, VMs, and network layout.
+
+## Host machine
+
+Hostname: d01
+User: lp01
+OS: Ubuntu Server 24.04
+Specs: 8 CPU cores, 6.9 GB RAM, 86 GB free disk
+IP: 192.168.1.154 (local network)
+
+## What's running
+
+Wazuh SIEM (Manager, Indexer, Dashboard) installed directly on d01.
+
+Wazuh is monitoring d01 itself right now through its own agent (agent.name: d01, 
+agent.id: 000). Rootcheck, file integrity monitoring, and log analysis are all active 
+as part of the default install.
+
+## Planned additions
+
+Kali Linux VM - will act as an attacker machine to generate real attack traffic for 
+Wazuh to detect, instead of just watching d01 monitor itself. Once this is up, agent 
+coverage will expand beyond just the SIEM host.
+
+## Why this setup
+
+The goal isn't a huge multi-VM enterprise simulation, it's to get real, hands-on 
+experience running a SIEM: install it, tune it, watch real alerts come in, figure out 
+which ones are noise and which ones matter, and document that process like an actual 
+analyst would on the job.
+
+## Network
+
+Everything currently runs on the home local network (192.168.x.x range), no external 
+exposure. Wazuh dashboard is accessed locally over HTTPS with a self-signed cert 
+(browser will show "Not secure," which is expected for a lab environment without a 
+trusted cert configured).
