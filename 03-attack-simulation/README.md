@@ -7,7 +7,7 @@ Status: Resolved — Attack Unsuccessful
 Environment
 The target machine, d01, is a dedicated Ubuntu Server 24.04 physical host running a Wazuh 4.14.5 all-in-one deployment (manager, indexer, and dashboard). Wazuh monitors d01 via its built-in agent (ID 000), which captures authentication events, system logs, and security alerts locally. The simulated attacker machine was a Windows 11 host running WSL2 (Ubuntu), connected to the same 192.168.1.x home network as d01.
 
-"C:\Users\thoma\Cisco Packet Tracer 9.0.0\saves\Soc_LAB_Attack\01-environment-baseline.jpg"
+<img width="962" height="1079" alt="01-environment-baseline" src="https://github.com/user-attachments/assets/3c3e12ea-d650-4496-903a-336751857bd1" />
 
 Attack Simulation
 A simulated SSH brute force attack was executed using Hydra v9.6 from the attacker machine (192.168.1.67) targeting the lp01 user account on d01 (192.168.1.154) over port 22. The rockyou.txt wordlist (14.3 million entries) was used as the password list.
@@ -21,15 +21,15 @@ ssh://192.168.1.154 — target IP via SSH protocol
 -t 4 — 4 parallel threads
 -V — verbose output
 
+<img width="1101" height="606" alt="06-hydra-installed" src="https://github.com/user-attachments/assets/c25e9051-3202-402e-a9c7-5f967fa0d8f0" />
 
-📸 [INSERT SCREENSHOT: 05-attacker-wsl-ping-d01.jpg] — WSL2 confirming network reachability to d01
-📸 [INSERT SCREENSHOT: 06-hydra-installed.jpg] — Hydra installed and ready on attacker machine
 
 
 Detection
 Wazuh detected the attack within seconds. The total alert count spiked from 36 baseline alerts to 197, with 131 authentication failures recorded — compared to 0 authentication failures in the pre-attack baseline.
 
-📸 [INSERT SCREENSHOT: 07-post-attack-dashboard.jpg] — Wazuh dashboard showing alert spike after attack
+<img width="901" height="1027" alt="07-post-attack-alert-spike" src="https://github.com/user-attachments/assets/6a841869-dba6-417a-b0e2-55f28944be71" />
+
 
 Key rules triggered:
 Rule IDDescriptionLevel5760sshd: authentication failed52501syslog: User authentication failure52502syslog: User missed the password more than one time105758Maximum authentication attempts exceeded85557unix_chkpwd: Password check failed5
@@ -40,14 +40,19 @@ T1110.001 — Password Guessing
 T1021 — Remote Services
 
 
-📸 [INSERT SCREENSHOT: 08-events-raw-alerts.jpg] — Events tab showing rule descriptions and timestamps
+<img width="1919" height="1079" alt="07-post-attack-dashboard" src="https://github.com/user-attachments/assets/f62d1d07-f54a-4a76-9b07-19b01adb8a7f" />
+
+<img width="1919" height="1079" alt="08-events-raw-alerts" src="https://github.com/user-attachments/assets/34534f88-715d-4219-970c-47f4c448e8c9" />
+
+
 
 
 Investigation
 Expanding a raw alert in the Wazuh Events tab confirmed the following indicators:
 FieldValueSource IP192.168.1.67 (attacker/WSL machine)Target userlp01Target port22 (SSH)Agentd01 (ID 000)Rule fired37 times (rule 5760 alone)Raw logsshd-session[10450]: Failed password for lp01 from 192.168.1.67 port 63626 ssh2
 
-📸 [INSERT SCREENSHOT: 09-alert-detail-evidence.jpg] — Raw alert document detail showing confirmed source IP, target user, and full log entry
+<img width="1919" height="1079" alt="09-alert-detail-evidence" src="https://github.com/user-attachments/assets/c4b6b4c6-df14-4918-9612-78ac296379b3" />
+
 
 Key investigative findings:
 
