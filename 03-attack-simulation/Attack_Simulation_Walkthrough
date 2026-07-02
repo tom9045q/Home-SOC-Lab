@@ -7,7 +7,7 @@ Status: Resolved — Attack Unsuccessful
 Environment
 The target machine, d01, is a dedicated Ubuntu Server 24.04 physical host running a Wazuh 4.14.5 all-in-one deployment (manager, indexer, and dashboard). Wazuh monitors d01 via its built-in agent (ID 000), which captures authentication events, system logs, and security alerts locally. The simulated attacker machine was a Windows 11 host running WSL2 (Ubuntu), connected to the same 192.168.1.x home network as d01.
 
-
+"C:\Users\thoma\Cisco Packet Tracer 9.0.0\saves\Soc_LAB_Attack\01-environment-baseline.jpg"
 
 Attack Simulation
 A simulated SSH brute force attack was executed using Hydra v9.6 from the attacker machine (192.168.1.67) targeting the lp01 user account on d01 (192.168.1.154) over port 22. The rockyou.txt wordlist (14.3 million entries) was used as the password list.
