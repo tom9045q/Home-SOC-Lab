@@ -11,7 +11,8 @@
 
 The target machine `d01` is a physical Ubuntu Server 24.04 host running Wazuh 4.14.5 (manager, indexer, and dashboard all-in-one). Wazuh monitors `d01` through its built-in agent (ID 000), which captures authentication events, system logs, and security alerts locally. The attacker machine was a Windows 11 PC running WSL2 (Ubuntu), on the same 192.168.1.x home network as `d01`.
 
-![Environment Baseline](01-environment-baseline.jpg)
+<img width="928" height="552" alt="01-environment-baseline" src="https://github.com/user-attachments/assets/1491bf7f-56dc-4933-9fec-ddd620459e9f" />
+
 
 
 ## Attack Simulation
@@ -27,8 +28,10 @@ hydra -l lp01 -P rockyou.txt ssh://192.168.1.154 -t 4 -V
 - `-t 4` — 4 parallel threads
 - `-V` — verbose, show every attempt
 
-![WSL2 Ping to d01](05-attacker-wsl-ping-d01.jpg)
-![Hydra Installed](06-hydra-installed.jpg)
+<img width="962" height="1079" alt="01-environment-baseline" src="https://github.com/user-attachments/assets/594c203f-b06b-4826-9189-5bea29eacf7e" />
+
+<img width="1101" height="606" alt="06-hydra-installed" src="https://github.com/user-attachments/assets/0ab05199-9010-4498-abef-4cf38d4975e5" />
+
 
 
 
@@ -36,8 +39,11 @@ hydra -l lp01 -P rockyou.txt ssh://192.168.1.154 -t 4 -V
 
 Wazuh caught it within seconds. Alert count jumped from 36 baseline alerts to 197, with **131 authentication failures** — compared to zero before the attack started.
 
-![Alert Spike](07-post-attack-alert-spike.jpg)
-![Post Attack Dashboard](07-post-attack-dashboard.jpg)
+<img width="1919" height="1079" alt="04-baseline-alerts-review" src="https://github.com/user-attachments/assets/a0174052-8b85-4317-8260-398af0e67d08" />
+
+
+<img width="901" height="1027" alt="07-post-attack-alert-spike" src="https://github.com/user-attachments/assets/1fc1cd6f-94e9-43ac-af11-034a1cef8db9" />
+
 
 **Rules that fired:**
 
@@ -49,7 +55,8 @@ Wazuh caught it within seconds. Alert count jumped from 36 baseline alerts to 19
 
 **MITRE ATT&CK:** T1110 (Brute Force), T1110.001 (Password Guessing), T1021 (Remote Services)
 
-![Raw Alerts](08-events-raw-alerts.jpg)
+<img width="1919" height="1079" alt="08-events-raw-alerts" src="https://github.com/user-attachments/assets/47eb57f2-cf9c-4948-b968-1ab173812f62" />
+
 
 
 
@@ -64,7 +71,8 @@ I clicked into a raw alert in the Wazuh Events tab to confirm the source. Here's
 **Rule 5760 fired:** 37 times  
 **Raw log entry:** `sshd-session[10450]: Failed password for lp01 from 192.168.1.67 port 63626 ssh2`
 
-![Alert Detail Evidence](09-alert-detail-evidence.jpg)
+<img width="1919" height="1079" alt="09-alert-detail-evidence" src="https://github.com/user-attachments/assets/f25a311d-1857-4387-ae99-63b25173bf22" />
+
 
 A few things stood out during the investigation:
 
