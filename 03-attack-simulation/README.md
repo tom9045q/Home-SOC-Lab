@@ -83,5 +83,4 @@ Baseline alert review before the attack (71 alerts, all benign install-time acti
 Tools Used
 ToolPurposeWazuh 4.14.5SIEM — alert detection and investigationHydra v9.6SSH brute force simulationrockyou.txtPassword wordlist (14.3M entries)WSL2 (Ubuntu on Windows 11)Attacker environmentUbuntu Server 24.04Target host (d01)
 
-Paste that into 03-attack-simulation/README.md, insert your screenshots where marked, and commit it.
-Then come back and explain the Investigation section to me in your own words — that's still the condition of the deal.
+
